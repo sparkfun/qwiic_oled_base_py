@@ -39,7 +39,6 @@
 # Example 1 - Simple example to display a bitmap on the Qwiic Micro OLED board.
 #
 
-from __future__ import print_function
 import qwiic_oled_base
 import time
 import sys

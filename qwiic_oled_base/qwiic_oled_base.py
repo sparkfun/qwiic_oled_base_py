@@ -54,7 +54,6 @@ New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.s
 
 """
 
-from __future__ import print_function
 import sys
 import math
 # import time
@@ -448,7 +447,7 @@ class QwiicOledBase(object):
             text = str(text)
 
         if isinstance(text, str):
-            text = bytearray(text, encoding='ascii')
+            text = bytearray(text, 'ascii')
 
         for curr in text:
             self.write(curr)
@@ -948,6 +947,7 @@ class QwiicOledBase(object):
                         mode)
             #pylint: enable=consider-using-enumerate, invalid-unary-operand-type
 
+    
     def scroll_stop(self):
         """
             Stop scrolling operation.
@@ -959,7 +959,39 @@ class QwiicOledBase(object):
         self._i2c.writeByte(self.address, I2C_COMMAND, DEACTIVATESCROLL)
 
 
-    # Set row start to row stop on the OLED to scroll right.
+    # Set row start to row stop on the OLED to scroll.
+    def scroll (self, start, stop, scrollCommand = RIGHTHORIZONTALSCROLL, vertOffset = 0):
+        """
+            Set row start to row stop on the OLED to scroll.
+            Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
+
+            :param start: The staring position on the display
+            :param stop: The stopping position on the display
+
+            :return: No return value
+        """
+        if stop < start:        # stop must be larger or equal to start
+            return
+
+        if scrollCommand in [VERTICALRIGHTHORIZONTALSCROLL, VERTICALLEFTHORIZONTALSCROLL]:
+            self._i2c.writeByte(self.address, I2C_COMMAND, SETVERTICALSCROLLAREA)
+            self._i2c.writeByte(self.address, I2C_COMMAND, 0x00)
+            self._i2c.writeByte(self.address, I2C_COMMAND, self.LCDHEIGHT)
+            if vertOffset == 0:
+                vertOffset = 1
+        
+        self.scroll_stop()       # need to disable scrolling before starting to avoid memory corrupt
+
+        self._i2c.writeByte(self.address, I2C_COMMAND, scrollCommand)
+        self._i2c.writeByte(self.address, I2C_COMMAND, 0x00)
+        self._i2c.writeByte(self.address, I2C_COMMAND, start)
+        self._i2c.writeByte(self.address, I2C_COMMAND, 0x7)     # scroll speed frames , TODO
+        self._i2c.writeByte(self.address, I2C_COMMAND, stop)
+        self._i2c.writeByte(self.address, I2C_COMMAND, vertOffset)
+        if vertOffset == 0: # Horizontal scroll
+            self._i2c.writeByte(self.address, I2C_COMMAND, 0xFF)
+        self._i2c.writeByte(self.address, I2C_COMMAND, ACTIVATESCROLL)
+    
     # Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
     def scroll_right(self, start, stop):
@@ -973,24 +1005,50 @@ class QwiicOledBase(object):
             :return: No return value
 
         """
+        self.scroll(start, stop, RIGHTHORIZONTALSCROLL)
 
-        if stop < start:        # stop must be larger or equal to start
-            return
+    def scroll_left(self, start, stop):
+        """
+            Set row start to row stop on the OLED to scroll right.
+            Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-        self.scroll_stop()       # need to disable scrolling before starting to avoid memory corrupt
+            :param start: The staring position on the display
+            :param stop: The stopping position on the display
 
-        self._i2c.writeByte(self.address, I2C_COMMAND, RIGHTHORIZONTALSCROLL)
-        self._i2c.writeByte(self.address, I2C_COMMAND, 0x00)
-        self._i2c.writeByte(self.address, I2C_COMMAND, start)
-        self._i2c.writeByte(self.address, I2C_COMMAND, 0x7)     # scroll speed frames , TODO
-        self._i2c.writeByte(self.address, I2C_COMMAND, stop)
-        self._i2c.writeByte(self.address, I2C_COMMAND, 0x00)
-        self._i2c.writeByte(self.address, I2C_COMMAND, 0xFF)
-        self._i2c.writeByte(self.address, I2C_COMMAND, ACTIVATESCROLL)
+            :return: No return value
 
+        """
+        self.scroll(start, stop, LEFT_HORIZONTALSCROLL)
+
+    def scroll_vert_left(self,start,stop, vertOffset = 1):
+        """
+            Set row start to row stop on the OLED to scroll vertical right (Diagonally).
+            Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
+
+            :param start: The staring position on the display
+            :param stop: The stopping position on the display
+            :param vert_offset: The vertical offset
+
+            :return: No return value
+
+        """
+        self.scroll(start, stop, VERTICALLEFTHORIZONTALSCROLL, vertOffset)
+    
+    def scroll_vert_right(self, start, stop, vertOffset = 1):
+        """
+            Set row start to row stop on the OLED to scroll vertical right (Diagonally).
+            Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
+
+            :param start: The staring position on the display
+            :param stop: The stopping position on the display
+            :param vert_offset: The vertical offset
+
+            :return: No return value
+
+        """
+        self.scroll(start, stop, VERTICALRIGHTHORIZONTALSCROLL, vertOffset)
 
     # Flip the graphics on the OLED vertically.
-
     def flip_vertical(self, flip):
         """
             Flip the graphics on the OLED vertically.
@@ -1001,10 +1059,7 @@ class QwiicOledBase(object):
 
         self._i2c.writeByte(self.address, I2C_COMMAND, COMSCANINC if flip else COMSCANDEC)
 
-
-
     # Flip the graphics on the OLED horizontally.
-
     def flip_horizontal(self, flip):
         """
             Flip the graphics on the OLED horizontally.
@@ -1012,8 +1067,9 @@ class QwiicOledBase(object):
             :return: No return value
 
         """
-
         self._i2c.writeByte(self.address, I2C_COMMAND, SEGREMAP | ( 0x0 if flip else 0x1))
+        self.clear(self.ALL)
+        self.display()
 
     # Return a pointer to the start of the RAM screen buffer for direct access.
     def get_screenbuffer(self):
@@ -1041,7 +1097,7 @@ class QwiicOledBase(object):
         """
 
         if len(bitArray) != len(self._screenbuffer):
-            print("draw_bitmap - Invalid Input size.", file-sys.stderr)
+            print("draw_bitmap - Invalid Input size.", file=sys.stderr)
             return
 
         self._screenbuffer[:] = bitArray

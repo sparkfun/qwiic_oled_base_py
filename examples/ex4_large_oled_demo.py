@@ -40,7 +40,6 @@
 # *Illustrates the same features as exmple 3, but illustrates the difference in speed to display the contents of the entire buffer
 # 
 
-from __future__ import print_function, division
 import qwiic_oled_base
 import time
 import sys

@@ -39,8 +39,8 @@
 # Example 2 - Simple example to display "hello world" on the Qwiic OLED Display board.
 #
 
-from __future__ import print_function
 import qwiic_oled_base
+import time
 import sys
 
 def runExample():
