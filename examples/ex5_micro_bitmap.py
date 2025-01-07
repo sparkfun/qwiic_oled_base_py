@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# ex1_bitmap_bender.py
+# ex5_micro_bitmap.py
 #
 # Simple Example for the Qwiic Micro OLED display
 #------------------------------------------------------------------------
@@ -39,11 +39,14 @@
 # Example 1 - Simple example to display a bitmap on the Qwiic Micro OLED board.
 #
 
-import qwiic_oled_base
+import qwiic_oled
 import time
 import sys
 
+# The library supports three different types of SparkFun boards. However, this example is just for the Micro OLED.
+userOLED = qwiic_oled.QwiicMicroOled()   # Micro OLED             https://www.sparkfun.com/products/14532
 
+# Bitmap must be the correct size based on the display type. This is for the Micro OLED.
 bender = [ \
   0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0xBF, 0xDF, 0x5F, 0x5F, 0x5F, 0x5F,\
   0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F, 0x5F,\
@@ -73,17 +76,11 @@ bender = [ \
 
 def runExample():
 
-  #  These three lines of code are all you need to initialize the
-  #  OLED and print the splash screen.
-
   #  Before you can start using the OLED, call begin() to init
   #  all of the pins and configure the OLED.
 
-
   print("\nSparkFun Micro OLED Bitmap Example\n")
-  myOLED = qwiic_oled_base.QwiicOledBase()
-  #  By default, the superclass/base Python package loads the parameters 
-  #  for the Qwiic Micro OLED board.
+  myOLED = userOLED
 
   if not myOLED.connected:
     print("The Qwiic Micro OLED device isn't connected to the system. Please check your connection", \

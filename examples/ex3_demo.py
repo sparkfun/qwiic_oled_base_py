@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# ex4_large_oled_demo.py
+# ex3_demo.py
 #
-# Simple Example for a 128 x 64 pixel OLED Display
+# Demo Example for an OLED Display
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2021
@@ -36,15 +36,22 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 3 - An example showing various features of the display driver on a 128 x 64 pixel OLED display.
-# *Illustrates the same features as exmple 3, but illustrates the difference in speed to display the contents of the entire buffer
-# 
+# Example 3 - An example showing various features of the display driver
+#
 
-import qwiic_oled_base
+import qwiic_oled
 import time
 import sys
 import math
 from random import randint
+
+# --------- SET YOUR OLED DISPLAY TYPE HERE ----------------
+# The library supports three different types of SparkFun boards. The demo uses the following
+# variables to determine which device is being used. Uncomment the device being used for this demo.
+
+userOLED = qwiic_oled.QwiicMicroOled()   # Micro OLED             https://www.sparkfun.com/products/14532
+# userOLED = qwiic_oled.QwiicOledDisplay() # "Narrow" OLED          https://www.sparkfun.com/products/24606
+# userOLED = qwiic_oled.QwiicLargeOled()  # Qwiic OLED 1.3in        https://www.sparkfun.com/products/23453
 
 #-------------------------------------------------------------------
 def pixelExample(myOLED):
@@ -325,19 +332,14 @@ def textExamples(myOLED):
 #-------------------------------------------------------------------
 
 def runExample():
-
-    #  These three lines of code are all you need to initialize the
-    #  OLED and print the splash screen.
-
     #  Before you can start using the OLED, call begin() to init
     #  all of the pins and configure the OLED.
 
-
-    print("\n128 x 64 OLED Display - Everything Example\n")
-    myOLED = qwiic_oled_base.QwiicOledBase(None, 128, 64)
+    print("\nOLED Display - Everything Example\n")
+    myOLED = userOLED
 
     if not myOLED.connected:
-        print("An OLED device isn't connected to the system. Please check your connection", \
+        print("The OLED Display isn't connected to the system. Please check your connection", \
             file=sys.stderr)
         return
 

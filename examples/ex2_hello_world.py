@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# ex2_qwiic_oled_display.py
+# ex2_hello_world.py
 #
-# Simple Example for the Qwiic OLED Display
+# "Hello World" Example for an OLED Display
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2021
@@ -36,29 +36,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 2 - Simple example to display "hello world" on the Qwiic OLED Display board.
+# Example 2 - Simple example to display "hello world"
 #
 
-import qwiic_oled_base
-import time
+import qwiic_oled
 import sys
+import time
+
+# --------- SET YOUR OLED DISPLAY TYPE HERE ----------------
+# The library supports three different types of SparkFun boards. The demo uses the following
+# variables to determine which device is being used. Uncomment the device being used for this demo.
+
+userOLED = qwiic_oled.QwiicMicroOled()   # Micro OLED             https://www.sparkfun.com/products/14532
+# userOLED = qwiic_oled.QwiicOledDisplay() # "Narrow" OLED          https://www.sparkfun.com/products/24606
+# userOLED = qwiic_oled.QwiicLargeOled()  # Qwiic OLED 1.3in        https://www.sparkfun.com/products/23453
 
 def runExample():
-
-    #  These three lines of code are all you need to initialize the
-    #  OLED and print the splash screen.
-
     #  Before you can start using the OLED, call begin() to init
     #  all of the pins and configure the OLED.
 
-
-    print("\nSparkFun OLED Display - Hello Example\n")
+    print("\nOLED Display - Hello World Example\n")
 
     #  Create instance with parameters for Qwiic OLED Display
-    myOLED = qwiic_oled_base.QwiicOledBase(0x3C, 128, 32)
+    myOLED = userOLED
 
     if not myOLED.connected:
-        print("The Qwiic OLED Display isn't connected to the system. Please check your connection", \
+        print("The OLED Display isn't connected to the system. Please check your connection", \
             file=sys.stderr)
         return
 
@@ -66,9 +69,9 @@ def runExample():
 
     #  clear(ALL) will clear out the OLED's graphic memory.
     myOLED.clear(myOLED.ALL) #  Clear the display's memory (gets rid of artifacts)
-    
-    #  Display buffer contents
-    myOLED.display()
+
+    #  To actually draw anything on the display, you must call the display() function.
+    myOLED.display()  #  Display buffer contents
     time.sleep(3)
 
     #  clear(PAGE) will clear the Arduino's display buffer.
@@ -83,7 +86,7 @@ def runExample():
     #  Add text
     myOLED.print("Hello World")
 
-    #  To actually draw anything on the display, you must call the display() function.
+    #  Display buffer contents
     myOLED.display()
 
 if __name__ == '__main__':
