@@ -2,7 +2,7 @@
 #-----------------------------------------------------------------------------
 # ex1_splash_screen.py
 #
-# Simple Example for an OLED Display
+# Simple Example for an OLED Display that displays the SparkFun splash screen
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2021
@@ -36,8 +36,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 1 - Simple example to display the splash screen bitmap
-#
 
 import qwiic_oled
 import time

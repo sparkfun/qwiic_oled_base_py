@@ -2,7 +2,7 @@
 #-----------------------------------------------------------------------------
 # ex3_demo.py
 #
-# Demo Example for an OLED Display
+# An example showing various features of the display driver for Qwiic OLED displays
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2021
@@ -36,8 +36,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 3 - An example showing various features of the display driver
-#
 
 import qwiic_oled
 import time
@@ -189,6 +187,14 @@ def shapeExample(myOLED):
 
     time.sleep(.2)
 
+def show_done(myOLED):
+    myOLED.set_font_type(1)
+    myOLED.clear(myOLED.PAGE)
+    myOLED.set_cursor(0, 0)
+    myOLED.print("DONE!")
+    myOLED.display()
+    time.sleep(1)
+
 #-------------------------------------------------------------------
 def textExamples(myOLED):
 
@@ -271,6 +277,7 @@ def textExamples(myOLED):
         myOLED.print("A1: ")
         myOLED.set_font_type(2)
 
+        # Note: For the "narrow" display, we can only fit the above two lines, so A2 will not be seen.
         myOLED.print("%.3d" % randint(0,255))
         myOLED.set_cursor(0, 32)
         myOLED.set_font_type(0)
@@ -282,6 +289,11 @@ def textExamples(myOLED):
         time.sleep(.1)
 
     # Demonstrate font 3. 12x48. Stopwatch demo.
+    if myOLED.get_lcd_height() < 48:
+        # The "narrow" display doesn't have enough height to fully display font 3 or 4 so we'll end the demo here.
+        show_done(myOLED)
+        return
+    
     myOLED.set_font_type(3)  # Use the biggest font
     ms = 0
     s = 0
@@ -321,13 +333,7 @@ def textExamples(myOLED):
     myOLED.display()
     time.sleep(1)
 
-    myOLED.set_font_type(1)
-    myOLED.clear(myOLED.PAGE)
-    myOLED.set_cursor(0, 0)
-    myOLED.print("DONE!")
-    myOLED.display()
-    time.sleep(1)
-
+    show_done(myOLED)
 
 #-------------------------------------------------------------------
 

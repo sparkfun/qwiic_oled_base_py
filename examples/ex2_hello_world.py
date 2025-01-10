@@ -36,8 +36,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 2 - Simple example to display "hello world"
-#
 
 import qwiic_oled
 import sys

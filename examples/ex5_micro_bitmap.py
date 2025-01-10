@@ -2,7 +2,7 @@
 #-----------------------------------------------------------------------------
 # ex5_micro_bitmap.py
 #
-# Simple Example for the Qwiic Micro OLED display
+# Example for the Qwiic Micro OLED display that displays Bender's face!
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2021
@@ -36,8 +36,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example 1 - Simple example to display a bitmap on the Qwiic Micro OLED board.
-#
 
 import qwiic_oled
 import time

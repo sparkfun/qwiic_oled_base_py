@@ -35,9 +35,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #==================================================================================
-# Example - simple command to draw a cube the OLED.
-#
-
 
 import qwiic_oled
 import sys
