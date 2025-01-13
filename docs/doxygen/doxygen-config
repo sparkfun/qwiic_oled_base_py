@@ -54,7 +54,7 @@ PROJECT_NAME           = "Qwiic_OLED_Base_Py"
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "Python for SFE Qwiic PCA9685"
+PROJECT_BRIEF          = "Python for SFE Qwiic OLED"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
