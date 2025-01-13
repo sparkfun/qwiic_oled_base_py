@@ -39,7 +39,7 @@
 # pylint: disable=too-many-lines, too-many-arguments, too-many-instance-attributes
 # pylint: disable=too-many-public-methods
 
-"""
+"""!
 qwiic_oled_base
 =================
 The base Python module for the SSD1306 display driver on the following OLED displays:
@@ -51,7 +51,6 @@ This python package is a port of the existing [SparkFun Micro OLED Arduino Libra
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
 New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
-
 """
 
 import sys
@@ -126,16 +125,16 @@ VERTICALLEFTHORIZONTALSCROLL    = 0x2A
 
 
 class QwiicOledBase(object):
-    """
-    QwiicOledBase
+    """!
+        QwiicOledBase
 
-        :param address: The I2C address to use for the device.
+        @param address: The I2C address to use for the device.
                         If not provided, the default address is used.
-        :param i2c_driver: An existing i2c driver object. If not provided
+        @param i2c_driver: An existing i2c driver object. If not provided
                         a driver object is created.
-        :return: The SSD1306 OLED device object.
-        :rtype: Object
-    """
+
+        @return **Object** The SSD1306 OLED device object.
+        """
 
     # Constructor
     device_name         =_DEFAULT_NAME
@@ -205,26 +204,22 @@ class QwiicOledBase(object):
 
     #--------------------------------------------------------------------------
     def is_connected(self):
-        """
+        """!
             Determine if a SSD1306 OLED device is conntected to the system..
 
-            :return: True if the device is connected, otherwise False.
-            :rtype: bool
-
-        """
+            @return **bool** True if the device is connected, otherwise False.
+            """
         return qwiic_i2c.isDeviceConnected(self.address)
 
     connected = property(is_connected)
 
     #--------------------------------------------------------------------------
     def begin(self):
-        """
+        """!
             Initialize the operation of the SSD1306 display driver for the OLED module
 
-            :return: Returns true of the initializtion was successful, otherwise False.
-            :rtype: bool
-
-        """
+            @return **bool** Returns true of the initializtion was successful, otherwise False.
+            """
 
         self.set_font_type(0)
         self.set_color(self.WHITE)
@@ -277,14 +272,15 @@ class QwiicOledBase(object):
     #     Send page address command and address to the SSD1306 OLED controller.
 
     def set_page_address(self, pageAddress):
-        """
+        """!
             Set SSD1306 page address.
 
-            :param pageAddress: The page address command and address
+            @param pageAddress: The page address command and address
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         # self._i2c.writeByte(self.address, I2C_COMMAND, 0xb0|pageAddress)
 
@@ -295,14 +291,15 @@ class QwiicOledBase(object):
     #----------------------------------------------------
     # Send column address command and address to the SSD1306 OLED controller.
     def set_column_address(self, colAddress):
-        """
+        """!
             Set SSD1306 column address.
 
-            :param colAddress: The column address command and address
+            @param colAddress: The column address command and address
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         
         if len(self._screenbuffer) == 384:
             self._i2c.writeByte(self.address, I2C_COMMAND, (0x10|(colAddress>>4))+0x02)
@@ -316,16 +313,17 @@ class QwiicOledBase(object):
     #  To clear GDRAM inside the LCD controller, pass in the variable mode = ALL and to clear screen page buffer pass in the variable mode = PAGE.
 
     def clear(self, mode, value=0):
-        """
+        """!
             Clear the display on the OLED Device.
 
-            :param mode: To clear GDRAM inside the LCD controller, pass in the variable mode = ALL,
+            @param mode: To clear GDRAM inside the LCD controller, pass in the variable mode = ALL,
                  and to clear screen page buffer pass in the variable mode = PAGE.
-            :param value: The value to clear the screen to. Default value is 0
+            @param value: The value to clear the screen to. Default value is 0
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if mode == self.ALL:
             for i in range(8):
@@ -342,14 +340,15 @@ class QwiicOledBase(object):
     # The WHITE color of the display will turn to BLACK and the BLACK will turn to WHITE.
 
     def invert(self, inv):
-        """
+        """!
             Invert the display of the display. The WHITE color of the display will turn to BLACK and the BLACK will turn to WHITE.
 
-            :param inv: If True, the screen is inverted. If False the screen is set to Normal mode.
+            @param inv: If True, the screen is inverted. If False the screen is set to Normal mode.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         if inv:
             self._i2c.writeByte(self.address, I2C_COMMAND, INVERTDISPLAY)
         else:
@@ -359,14 +358,15 @@ class QwiicOledBase(object):
     # OLED contract value from 0 to 255. Note: Contrast level is not very obvious.
 
     def contrast(self, contrast):
-        """
+        """!
             Set the OLED contract value from 0 to 255. Note: Contrast level is not very obvious on the display.
 
-            :param contrast: Contrast Value between 0-255
+            @param contrast: Contrast Value between 0-255
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self._i2c.writeByte(self.address, I2C_COMMAND, SETCONTRAST)     #  0x81
         self._i2c.writeByte(self.address, I2C_COMMAND, contrast)
 
@@ -374,13 +374,14 @@ class QwiicOledBase(object):
     # Bulk move the screen buffer to the SSD1306 controller's memory so that images/graphics drawn on the screen buffer will be displayed on the OLED.
 
     def display(self):
-        """
+        """!
             Display the current screen buffer on the Display device.
             Bulk move the screen buffer to the SSD1306 controller's memory so that images/graphics drawn on the screen buffer will be displayed on the OLED.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         # the I2C library being used allows blocks upto 32 ints to be sent at a time.
         #
         # The screenbuffer is sliced into 32 int blocks and set. This results in a faster
@@ -409,14 +410,15 @@ class QwiicOledBase(object):
     #     Leftover from port -> Arduino's print overridden so that we can use uView.print().
     #--------------------------------------------------------------------------
     def write(self, c):
-        """
+        """!
             Write a character on the display using the current font, at the current position.
 
-            :param c: Character to write. A value of '\\\\n' starts a new line.
+            @param c: Character to write. A value of '\\\\n' starts a new line.
 
-            :return: 1 on success
+            @return  1 on success
 
-        """
+        
+            """
         if c == '\n':
             # self.cursorY += self.fontHeight
             self.cursorY += self._font.height
@@ -432,15 +434,16 @@ class QwiicOledBase(object):
 
     #--------------------------------------------------------------------------
     def print(self, text):
-        """
+        """!
             Print a line of text on the display using the current font,
             starting at the current position.
 
-            :param text: The line of text to write.
+            @param text: The line of text to write.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         # a list or array? If not, make it one
         if not hasattr(text, '__len__'): # scalar?
@@ -457,15 +460,16 @@ class QwiicOledBase(object):
     # OLED's cursor position to x,y.
 
     def set_cursor(self, x, y):
-        """
+        """!
             Set the current cusor position for writing text
 
-            :param x: The X position on the display
-            :param y: The Y position on the display
+            @param x: The X position on the display
+            @param y: The Y position on the display
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self.cursorX = x
         self.cursorY = y
 
@@ -473,19 +477,20 @@ class QwiicOledBase(object):
     # Draw color pixel in the screen buffer's x,y position with NORM or XOR draw mode.
 
     def pixel(self, x, y, color=None, mode=None):
-        """
+        """!
             Draw a pixel at a given position, with a given color. Pixel copy mode is
             either Normal (source copy) or XOR
 
-            :param x: The X position on the display
-            :param y: The Y position on the display
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either
+            @param x: The X position on the display
+            @param y: The Y position on the display
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either
                         XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -514,19 +519,20 @@ class QwiicOledBase(object):
     #  Draw line using color and mode from x0,y0 to x1,y1 of the screen buffer.
 
     def line(self, x0, y0, x1, y1, color=None, mode=None):
-        """
+        """!
             Draw a line starting at and ending at specified coordinates, with a given color. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x0: The X starting position for the line
-            :param y0: The Y starting position for the line.
-            :param x1: The X ending position for the line
-            :param y1: The Y ending position for the line.
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
+            @param x0: The X starting position for the line
+            @param y0: The Y starting position for the line.
+            @param x1: The X ending position for the line
+            @param y1: The Y ending position for the line.
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -570,18 +576,19 @@ class QwiicOledBase(object):
     # Draw horizontal line using color and mode from x,y to x+width,y of the screen buffer.
 
     def line_h(self, x, y, width, color=None, mode=None):
-        """
+        """!
             Draw a horizontal line defined by a starting position and width. A color can be specified. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x: The X starting position for the line
-            :param y: The Y starting position for the line.
-            :param width: The width (length) of the line
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
+            @param x: The X starting position for the line
+            @param y: The Y starting position for the line.
+            @param width: The width (length) of the line
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -595,20 +602,21 @@ class QwiicOledBase(object):
     # Draw vertical line using color and mode from x,y to x,y+height of the screen buffer.
 
     def line_v(self, x, y, height, color=None, mode=None):
-        """
+        """!
             Draw a vertical line defined by a starting position and width. A color can be specified.
             Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x: The X starting position for the line
-            :param y: The Y starting position for the line.
-            :param height: The height (length) of the line
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either
+            @param x: The X starting position for the line
+            @param y: The Y starting position for the line.
+            @param height: The height (length) of the line
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either
                         XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -622,20 +630,21 @@ class QwiicOledBase(object):
     # Draw rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
 
     def rect(self, x, y, width, height, color=None, mode=None):
-        """
+        """!
             Draw a rectangle on the diplay. A color can be specified. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x: The X starting position for the rectangle
-            :param y: The Y starting position for the rectangle.
-            :param width: The width of the rectangle
-            :param height: The height of the rectangle
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer.
+            @param x: The X starting position for the rectangle
+            @param y: The Y starting position for the rectangle.
+            @param width: The width of the rectangle
+            @param height: The height of the rectangle
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer.
                         Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -660,20 +669,21 @@ class QwiicOledBase(object):
     #  Draw filled rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
 
     def rect_fill(self, x, y, width, height, color=None, mode=None):
-        """
+        """!
             Draw a filled rectangle on the diplay. A color can be specified. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x: The X starting position for the rectangle
-            :param y: The Y starting position for the rectangle.
-            :param width: The width of the rectangle
-            :param height: The height of the rectangle
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer.
+            @param x: The X starting position for the rectangle
+            @param y: The Y starting position for the rectangle.
+            @param width: The width of the rectangle
+            @param height: The height of the rectangle
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer.
                         Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -689,18 +699,19 @@ class QwiicOledBase(object):
     # Draw circle with radius using color and mode at x,y of the screen buffer.
 
     def circle(self, x0, y0, radius, color=None, mode=None):
-        """
+        """!
             Draw a circle on the diplay. A color can be specified. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x0: The X center position for the circle
-            :param y0: The Y center position for the circle.
-            :param radius: The radius of the circle
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
+            @param x0: The X center position for the circle
+            @param y0: The Y center position for the circle.
+            @param radius: The radius of the circle
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -743,26 +754,28 @@ class QwiicOledBase(object):
     # The height of the LCD return as byte.
 
     def get_lcd_height(self):
-        """
+        """!
             The height of the display in pixels
 
-            :return: height of the display
+            @return  height of the display
             :rvalue: integer
 
-        """
+        
+            """
         return self.LCDHEIGHT
 
     height = property(get_lcd_height)
 
     # The width of the LCD return as byte.
     def get_lcd_width(self):
-        """
+        """!
             The width of the display in pixels
 
-            :return: width of the display
+            @return  width of the display
             :rvalue: integer
 
-        """
+        
+            """
         return self.LCDWIDTH
 
     width = property(get_lcd_width)
@@ -770,13 +783,14 @@ class QwiicOledBase(object):
     # The cucrrent font's width return as byte.
 
     def get_font_width(self):
-        """
+        """!
             The width of the current font
 
-            :return: width of the font
+            @return  width of the font
             :rvalue: integer
 
-        """
+        
+            """
         return self._font.width
 
     font_width = property(get_font_width)
@@ -784,75 +798,82 @@ class QwiicOledBase(object):
     # The current font's height return as byte.
 
     def get_font_height(self):
-        """
+        """!
             The height of the current font
 
-            :return: height of the font
+            @return  height of the font
             :rvalue: integer
 
-        """
+        
+            """
         return self._font.height
 
     font_height = property(get_font_height)
     # Return the starting ASCII character of the currnet font, not all fonts start with ASCII character 0. Custom fonts can start from any ASCII character.
 
     def get_font_start_char(self):
-        """
+        """!
             Return the starting ASCII character of the currnet font, not all fonts start with ASCII character 0.
             Custom fonts can start from any ASCII character.
 
-            :return: Starting character of the current font.
+            @return  Starting character of the current font.
             :rvalue: integer
 
-        """
+        
+            """
         return self._font.start_char
 
     # Return the total characters of the current font.
 
     def get_font_total_char(self):
-        """
+        """!
             The total number of characters in the current font.
 
-            :return: Total number of characters
+            @return  Total number of characters
             :rvalue: integer
 
-        """
+        
+            """
         return self._font.total_char
 
 
     # Return the total number of fonts loaded into the OLED's flash memory.
 
     def get_total_fonts(self):
-        """
+        """!
             Return the total number of fonts loaded into the OLED's flash memory.
 
-            :return: Total number of fonts available
+            @return  Total number of fonts available
             :rvalue: integer
 
-        """
+        
+            """
         return self.nFonts
 
     # Return the font type number of the current font.
     def get_font_type(self):
-        """
+        """!
             Return the font type number of the current font.
 
-            :return: Font type number.
+            @return  Font type number.
             :rvalue: integer
 
-        """
+        
+            """
         return self.fontType
 
     # Set the current font type number, ie changing to different fonts base on the type provided.
 
     def set_font_type(self, font_type):
-        """
+        """!
             Set the current font type number, ie changing to different fonts base on the type provided.
 
-            :param type: The type to set the font to.
-            :return: No return value
+            @param type: The type to set the font to.
 
-        """
+            @return  No return value
+
+        
+            """
 
         if font_type >= self.nFonts or font_type < 0:
             return False
@@ -868,42 +889,47 @@ class QwiicOledBase(object):
     # Set the current draw's color. Only WHITE and BLACK available.
 
     def set_color(self, color):
-        """
+        """!
             Set the current draw's color. Only WHITE and BLACK available.
 
-            :param color: Color Value
-            :return: No return value
+            @param color: Color Value
 
-        """
+            @return  No return value
+
+        
+            """
         self.foreColor = color
 
     # Set current draw mode with NORM or XOR.
 
     def set_draw_modee(self, mode):
-        """
+        """!
             Set current draw mode with NORM or XOR.
 
-            :param mode: Draw Mode
-            :return: No return value
+            @param mode: Draw Mode
 
-        """
+            @return  No return value
+
+        
+            """
         self.drawMode = mode
 
     # Draw character c using color and draw mode at x,y.
     # pylint: disable=too-many-locals
     def draw_char(self, x, y, c, color=None, mode=None):
-        """
+        """!
             Draw character c using color and draw mode at x,y. Pixel copy mode is either Normal (source copy) or XOR
 
-            :param x: The X position on the display
-            :param y: The Y position on the display
-            :param c: The character to draw
-            :param color: The color to draw. If not set, the default foreground color is used.
-            :param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
+            @param x: The X position on the display
+            @param y: The Y position on the display
+            @param c: The character to draw
+            @param color: The color to draw. If not set, the default foreground color is used.
+            @param mode: The mode to draw the pixl to the screen bufffer. Value can be either XOR or NORM. Default is NORM
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         if color is None:
             color = self.foreColor
@@ -949,27 +975,29 @@ class QwiicOledBase(object):
 
     
     def scroll_stop(self):
-        """
+        """!
             Stop scrolling operation.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         self._i2c.writeByte(self.address, I2C_COMMAND, DEACTIVATESCROLL)
 
 
     # Set row start to row stop on the OLED to scroll.
     def scroll (self, start, stop, scrollCommand = RIGHTHORIZONTALSCROLL, vertOffset = 0):
-        """
+        """!
             Set row start to row stop on the OLED to scroll.
             Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-            :param start: The staring position on the display
-            :param stop: The stopping position on the display
+            @param start: The staring position on the display
+            @param stop: The stopping position on the display
 
-            :return: No return value
-        """
+            @return  No return value
+        
+            """
         if stop < start:        # stop must be larger or equal to start
             return
 
@@ -995,91 +1023,95 @@ class QwiicOledBase(object):
     # Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
     def scroll_right(self, start, stop):
-        """
+        """!
             Set row start to row stop on the OLED to scroll right.
             Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-            :param start: The staring position on the display
-            :param stop: The stopping position on the display
+            @param start: The staring position on the display
+            @param stop: The stopping position on the display
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self.scroll(start, stop, RIGHTHORIZONTALSCROLL)
 
     def scroll_left(self, start, stop):
-        """
+        """!
             Set row start to row stop on the OLED to scroll right.
             Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-            :param start: The staring position on the display
-            :param stop: The stopping position on the display
+            @param start: The staring position on the display
+            @param stop: The stopping position on the display
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self.scroll(start, stop, LEFT_HORIZONTALSCROLL)
 
     def scroll_vert_left(self,start,stop, vertOffset = 1):
-        """
+        """!
             Set row start to row stop on the OLED to scroll vertical right (Diagonally).
             Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-            :param start: The staring position on the display
-            :param stop: The stopping position on the display
-            :param vert_offset: The vertical offset
+            @param start: The staring position on the display
+            @param stop: The stopping position on the display
+            @param vert_offset: The vertical offset
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self.scroll(start, stop, VERTICALLEFTHORIZONTALSCROLL, vertOffset)
     
     def scroll_vert_right(self, start, stop, vertOffset = 1):
-        """
+        """!
             Set row start to row stop on the OLED to scroll vertical right (Diagonally).
             Refer to http://learn.microview.io/intro/general-overview-of-microview.html for explanation of the rows.
 
-            :param start: The staring position on the display
-            :param stop: The stopping position on the display
-            :param vert_offset: The vertical offset
+            @param start: The staring position on the display
+            @param stop: The stopping position on the display
+            @param vert_offset: The vertical offset
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self.scroll(start, stop, VERTICALRIGHTHORIZONTALSCROLL, vertOffset)
 
     # Flip the graphics on the OLED vertically.
     def flip_vertical(self, flip):
-        """
+        """!
             Flip the graphics on the OLED vertically.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
 
         self._i2c.writeByte(self.address, I2C_COMMAND, COMSCANINC if flip else COMSCANDEC)
 
     # Flip the graphics on the OLED horizontally.
     def flip_horizontal(self, flip):
-        """
+        """!
             Flip the graphics on the OLED horizontally.
 
-            :return: No return value
+            @return  No return value
 
-        """
+        
+            """
         self._i2c.writeByte(self.address, I2C_COMMAND, SEGREMAP | ( 0x0 if flip else 0x1))
         self.clear(self.ALL)
         self.display()
 
     # Return a pointer to the start of the RAM screen buffer for direct access.
     def get_screenbuffer(self):
-        """
+        """!
             Return a pointer to the start of the RAM screen buffer for direct access.
 
-            :return: The internal screen buffer
-            :rtype: integer array
-
-        """
+            @return **integer array** The internal screen buffer
+            """
         return self._screenbuffer
 
 
@@ -1087,14 +1119,16 @@ class QwiicOledBase(object):
     # To use, create uint8_t array that is 64x48 pixels (384 bytes). Then call .draw_bitmap and pass it the array.
 
     def draw_bitmap(self, bitArray):
-        """
+        """!
             Draw Bitmap image on screen.
             To use, create int array that is 64x48 pixels (384 bytes). Then call .draw_bitmap and pass it the array.
 
-            :param bitArray: The bitmap to draw
-            :return: No return value
+            @param bitArray: The bitmap to draw
 
-        """
+            @return  No return value
+
+        
+            """
 
         if len(bitArray) != len(self._screenbuffer):
             print("draw_bitmap - Invalid Input size.", file=sys.stderr)
