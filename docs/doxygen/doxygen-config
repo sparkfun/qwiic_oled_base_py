@@ -950,6 +950,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = qwiic_oled/qwiic_oled_base.py \
+                         qwiic_oled/oled_logos.py \
                          README.md \
                          docs
 
