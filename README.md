@@ -2,9 +2,9 @@
 
 # SparkFun Qwiic OLED - Python Package
 
-![PyPi Version](https://img.shields.io/pypi/v/sparkfun_qwiic_oled)
-![GitHub issues](https://img.shields.io/github/issues/sparkfun/qwiic_oled_py)
-![License](https://img.shields.io/github/license/sparkfun/qwiic_oled_py)
+![PyPi Version](https://img.shields.io/pypi/v/sparkfun_qwiic_oled_base)
+![GitHub issues](https://img.shields.io/github/issues/sparkfun/qwiic_oled_base_py)
+![License](https://img.shields.io/github/license/sparkfun/qwiic_oled_base_py)
 ![X](https://img.shields.io/twitter/follow/sparkfun)
 [![API](https://img.shields.io/badge/API%20Reference-blue)](https://docs.sparkfun.com/qwiic_oled_base_py/classqwiic__oled_1_1qwiic__oled__base_1_1_qwiic_oled_base.html)
 
@@ -76,12 +76,12 @@ If not already installed, follow the [instructions here](https://docs.micropytho
 
 Connect a device with MicroPython installed to your computer and then install the package directly to your device with mpremote mip.
 ```sh
-mpremote mip install github:sparkfun/qwiic_oled_py
+mpremote mip install github:sparkfun/qwiic_oled_base_py
 ```
 
 If you would also like to install the examples for this repository, issue the following mip command as well:
 ```sh
-mpremote mip install github:sparkfun/qwiic_oled_py@examples
+mpremote mip install github:sparkfun/qwiic_oled_base_py@examples
 ```
 
 ### CircuitPython Installation
@@ -111,7 +111,7 @@ Example Use
  ---------------
 Below is a quickstart program to print readings from the OLED.
 
-See the examples directory for more detailed use examples and [examples/README.md](https://github.com/sparkfun/qwiic_oled_py/blob/main/examples/README.md) for a summary of the available examples.
+See the examples directory for more detailed use examples and [examples/README.md](https://github.com/sparkfun/qwiic_oled_base_py/blob/main/examples/README.md) for a summary of the available examples.
 
 ```python
 
