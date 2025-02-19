@@ -37,32 +37,32 @@
 # SOFTWARE.
 #==================================================================================
 
-# Define a function to Init a screen buffer that is setup for the sparkfun OLED.
-# This is copied from the Arduino lib.
-# Use http://en.radzio.dxp.pl/bitmap_converter/ to generate output
-# Make sure the bitmap is n*8 pixels tall (pad white pixels to lower area as needed)
-# Otherwise the bitmap bitmap_converter will compress some of the bytes together
-
-# # LCD Memory organised in 64 horizontal pixel and 6 (8 on large display) rows of byte
-#  B  B .............B  -----
-#  y  y .............y        \
-#  t  t .............t         \
-#  e  e .............e          \
-#  0  1 .............63          \
-#                                 \
-#  D0 D0.............D0            \
-#  D1 D1.............D1            / ROW 0
-#  D2 D2.............D2           /
-#  D3 D3.............D3          /
-#  D4 D4.............D4         /
-#  D5 D5.............D5        /
-#  D6 D6.............D6       /
-#  D7 D7.............D7  ----
-# */
-
 
 def add_logo(screenbuffer=None):
+    """!
+    Define a function to Init a screen buffer that is setup for the sparkfun OLED.
+    This is copied from the Arduino lib.
+    Use http://en.radzio.dxp.pl/bitmap_converter/ to generate output
+    Make sure the bitmap is n*8 pixels tall (pad white pixels to lower area as needed)
+    Otherwise the bitmap bitmap_converter will compress some of the bytes together
 
+    # LCD Memory organised in 64 horizontal pixel and 6 (8 on large display) rows of byte
+    """
+    
+    # B  B .............B  -----
+    # y  y .............y        \
+    # t  t .............t         \
+    # e  e .............e          \
+    # 0  1 .............63          \
+    #                                 \
+    # D0 D0.............D0            \
+    # D1 D1.............D1            / ROW 0
+    # D2 D2.............D2           /
+    # D3 D3.............D3          /
+    # D4 D4.............D4         /
+    # D5 D5.............D5        /
+    # D6 D6.............D6       /
+    # D7 D7.............D7  ----
     if screenbuffer is None:
         #return blank_screenbuffer = [0x00]*int(LCDWIDTH*LCDHEIGHT/8 + 1) #Blank Screen Area in bytes (Total Pixels/8 + 1)
         print("Error: No input for screen buffer")
