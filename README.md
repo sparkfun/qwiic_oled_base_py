@@ -92,10 +92,14 @@ Ensure that you have the latest version of the SparkFun Qwiic CircuitPython bund
 circup bundle-add sparkfun/Qwiic_Py
 ```
 
-Finally, connect a device with CircuitPython installed to your computer and then install the package directly to your device with circup.
+Then, connect a device with CircuitPython installed to your computer and then install the package directly to your device with circup.
 ```sh
 circup install --py qwiic_oled
 ```
+
+> [!NOTE]
+> This library requires a decent stack size in order to run. In a file named "settings.toml" in the base directory on your CircuitPython board,
+> add the following line: ```CIRCUITPY_PYSTACK_SIZE=12288```. If you don't perform this step you will likely get "pystack exhausted" errors when trying to use these modules.
 
 If you would like to install any of the examples from this repository, issue the corresponding circup command from below. (NOTE: The below syntax assumes you are using CircUp on Windows. Linux and Mac will have different path seperators. See the [CircUp "example" command documentation](https://learn.adafruit.com/keep-your-circuitpython-libraries-on-devices-up-to-date-with-circup/example-command) for more information)
 
