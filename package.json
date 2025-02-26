@@ -1,10 +1,10 @@
 {
     "urls": [
-      ["qwiic_oled/fonts/0_font5x7.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/0_font5x7.bin"],
-      ["qwiic_oled/fonts/1_font8x16.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/1_font8x16.bin"],
-      ["qwiic_oled/fonts/2_7segment.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/2_7segment.bin"],
-      ["qwiic_oled/fonts/3_fontlargenumber.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/3_fontlargenumber.bin"],
-      ["qwiic_oled/fonts/4_fontlargeletter31x48.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/4_fontlargeletter31x48.bin"],
+      ["qwiic_oled/fonts/0_font5x7.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/fonts/0_font5x7.bin"],
+      ["qwiic_oled/fonts/1_font8x16.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/fonts/1_font8x16.bin"],
+      ["qwiic_oled/fonts/2_7segment.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/fonts/2_7segment.bin"],
+      ["qwiic_oled/fonts/3_fontlargenumber.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/fonts/3_fontlargenumber.bin"],
+      ["qwiic_oled/fonts/4_fontlargeletter31x48.bin", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/fonts/4_fontlargeletter31x48.bin"],
       ["qwiic_oled/__init__.py", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/__init__.py"],
       ["qwiic_oled/oled_fonts.py", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/oled_fonts.py"],
       ["qwiic_oled/oled_logos.py", "github:sparkfun/Qwiic_OLED_Base_Py/qwiic_oled/oled_logos.py"],
