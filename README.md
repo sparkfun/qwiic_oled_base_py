@@ -15,11 +15,10 @@ This repository implements a Python package for the SparkFun Qwiic OLED. This pa
 ### Contents
 
 * [About](#about-the-package)
-* [Getting Started](#getting-started)
 * [Installation](#installation)
 * [Supported Platforms](#supported-platforms)
 * [Documentation](https://docs.sparkfun.com/qwiic_oled_base_py/classqwiic__oled_1_1qwiic__oled__base_1_1_qwiic_oled_base.html)
-* [Examples](#examples)
+* [Examples](#example-use)
 
 ## About the Package
 
@@ -31,7 +30,9 @@ New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.s
 
 This Python package supports the following SparkFun qwiic products on Python, MicroPython and Circuit python. 
 
-* [SparkFun OLED Sensor - OLED](http://www.sparkfun.com/qwiic)
+* [SparkFun Qwiic OLED (0.91 in., 128x32)](https://www.sparkfun.com/sparkfun-qwiic-oled-display-0-91-in-128x32-lcd-24606.html)
+* [SparkFun Qwiic OLED (1.3 in., 128x64)](https://www.sparkfun.com/sparkfun-qwiic-oled-1-3in-128x64.html)
+* [SparkFun Qwiic Micro OLED Breakout](https://www.sparkfun.com/sparkfun-micro-oled-breakout-qwiic-lcd-22495.html)
 
 ### Supported Platforms
 
