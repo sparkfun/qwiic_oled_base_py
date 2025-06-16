@@ -142,9 +142,24 @@ class OLEDFont():
 		return self._fontData[key]
 
 
+def _check_if_exists(filename):
+	"""!
+	Checks if a file or directory exists. Works on MicroPython and CircuitPython
+	which do not have os.path functions (as well as Linux which does).
+	"""
+	try:
+		os.stat(filename)
+		return True
+	except:
+		return False
+		
 # handy util
-
 def _getFontDir():
+
+	# First check if font directory exists where it is installed when using a frozen SparkFun MicroPython package
+	# It should exist in "_frozen_data" if the package is frozen
+	if _check_if_exists("_frozen_data" + os.sep + "fonts"):
+		return "_frozen_data" + os.sep + "fonts"
 
 	return __file__.rsplit(os.sep, 1)[0] +  os.sep + "fonts"
 
