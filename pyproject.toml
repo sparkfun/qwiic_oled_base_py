@@ -3,7 +3,7 @@ requires = ["setuptools"]
 
 [project]
 name = "sparkfun_qwiic_oled_base"
-version = "2.0.0"
+version = "2.0.1"
 description = "SparkFun Electronics Qwiic OLED Base Python Package"
 readme = "DESCRIPTION.rst"
 
